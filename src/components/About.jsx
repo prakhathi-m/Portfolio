@@ -1,32 +1,33 @@
 import React from 'react';
+import { FiUser } from 'react-icons/fi';
 
 const About = () => {
   return (
-    <section id="about" className="content-section glass-panel">
-      <h2 className="section-title">About Me</h2>
+    <section id="about" className="editorial-section reveal-element">
+      <div className="editorial-section-header">
+        <h2 className="editorial-section-title section-header-title">
+          <FiUser className="section-header-icon" size={24} />
+          <span>About Me</span>
+        </h2>
+        <span className="editorial-section-number">01 // INTRODUCTION</span>
+      </div>
       
-      <p className="about-text" style={{ marginBottom: '24px' }}>
-        I am a <strong>Senior Front-End Software Developer</strong> with 6+ years of experience building accessible, scalable, and user-centric web applications. I specialize in developing design systems, component libraries, and optimizing web performance.
+      <p className="editorial-lead">
+        I build high-performance frontend systems that scale. I focus on optimizing render cycles, eliminating bundle bloat, and building accessible UI architecture - prioritizing technical pragmatism and measurable outcomes over abstract frameworks.
       </p>
 
-      <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '16px' }}>
-        Key Professional Highlights
-      </h3>
-      <ul className="experience-bullets" style={{ marginBottom: '16px' }}>
+      <ul className="editorial-points">
         <li>
-          <strong>Design Systems & Accessibility Expert</strong>: Proven track record implementing WCAG 2.1 A/AA standards, Storybook component libraries, and style-dictionary design tokens (for dark/light theme systems) serving thousands of users.
+          <strong>Performance & Compilations</strong>: Replaced outdated build configurations, speeding up local dev compile times by 20x and reducing page load times by 40% on client-facing applications.
         </li>
         <li>
-          <strong>AI & Automation Innovator</strong>: Specialized in leveraging AI tools (like Claude) to build design-to-code pipelines, reducing component development cycles by 35% while maintaining system consistency.
+          <strong>Component Systems</strong>: Built monorepos and design token libraries that cut new component development cycles by 35% while ensuring cross-platform styling consistency.
         </li>
         <li>
-          <strong>Senior Experience at ADP</strong>: Currently leading comprehensive frontend migrations, modernizing legacy modules to monorepo architectures, and architecting progressive embeddable form systems for enterprise clients.
+          <strong>Core Accessibility (a11y)</strong>: Programmed fluid, keyboard-navigable web apps with screen reader support, adhering strictly to WCAG 2.1 A/AA guidelines.
         </li>
         <li>
-          <strong>Full-Stack Versatility</strong>: Strong foundation in distributed systems, machine learning, and data engineering, with hands-on experience building REST APIs (Django, Node.js) and big data pipelines (PySpark, Hadoop MapReduce).
-        </li>
-        <li>
-          <strong>Academic Excellence</strong>: Master of Science in Computer Science from the University at Buffalo (GPA 3.78) and Bachelor of Technology in Information Technology (GPA 3.7).
+          <strong>Full-Stack Orchestration</strong>: Designed database schemas, custom React state hooks, and big data MapReduce scripts to manage complex HR workflows.
         </li>
       </ul>
     </section>

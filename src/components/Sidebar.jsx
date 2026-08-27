@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FaLinkedin, FaGithub, FaFileArrowDown } from 'react-icons/fa6';
-import { MdMail } from 'react-icons/md';
+import { FiDownload, FiLinkedin, FiGithub, FiMail, FiCheckSquare } from 'react-icons/fi';
 import profilePic from '../assets/profile_pic.jpg';
 import resumePdf from '../assets/Prakhathi Resume.pdf';
 
 const Sidebar = () => {
   const titles = [
-    'Senior Software Engineer',
-    'Application Developer',
-    'Frontend Specialist',
-    'Accessibility Advocate'
+    'Frontend Architecture',
+    'Design Systems',
+    'WCAG Web Accessibility',
+    'Responsive Applications'
   ];
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -21,24 +20,21 @@ const Sidebar = () => {
     const handleType = () => {
       const fullWord = titles[currentWordIndex];
       if (!isDeleting) {
-        // Typing characters
         setCurrentText(fullWord.substring(0, currentText.length + 1));
         setTypingSpeed(100);
 
         if (currentText === fullWord) {
-          // Pause at the end of word
           setTypingSpeed(2000);
           setIsDeleting(true);
         }
       } else {
-        // Deleting characters
         setCurrentText(fullWord.substring(0, currentText.length - 1));
         setTypingSpeed(50);
 
         if (currentText === '') {
           setIsDeleting(false);
           setCurrentWordIndex((prev) => (prev + 1) % titles.length);
-          setTypingSpeed(500); // Pause before next word
+          setTypingSpeed(500);
         }
       }
     };
@@ -48,64 +44,68 @@ const Sidebar = () => {
   }, [currentText, isDeleting, currentWordIndex, typingSpeed]);
 
   return (
-    <aside className="sidebar glass-panel">
-      <div className="profile-avatar-container">
-        <div className="profile-avatar-glow"></div>
+    <aside className="editorial-sidebar">
+      <div className="avatar-frame">
         <img 
-          className="profile-avatar" 
+          className="avatar-image" 
           src={profilePic} 
           alt="Prakhathi Murugesan" 
         />
       </div>
 
-      <div className="profile-info">
-        <h1>Prakhathi Murugesan</h1>
-        <span className="typing-title">{currentText || '\u200B'}</span>
+      <div className="sidebar-details">
+        <div className="sidebar-title">
+          <FiCheckSquare className="section-header-icon" size={18} style={{ marginTop: '3px' }} />
+          <div>
+            Expertise in <br />
+            <span className="typing-title" style={{ color: 'var(--color-terracotta)', borderRightColor: 'var(--color-terracotta)' }}>
+              {currentText || '\u200B'}
+            </span>
+          </div>
+        </div>
         
-        <p className="profile-bio" style={{ textAlign: 'center', marginBottom: '30px' }}>
-          Senior Software Engineer specializing in building beautiful, accessible, and high-performance web applications.
+        <p className="sidebar-bio">
+          Senior Software Engineer specialized in stripping out unneeded dependencies, optimizing front-end state, and building robust interfaces for autonomous agentic workflows.
+          {/* Senior Front-End Software Developer with 6+ years of experience building accessible, scalable, and user-centric web applications. Expert in React, TypeScript, and modern design systems. */}
         </p>
-      </div>
 
-      <div style={{ width: '100%' }}>
-        <div className="social-links">
+        <a 
+          href={resumePdf} 
+          download="Prakhathi-Resume.pdf" 
+          className="editorial-btn"
+          style={{ marginBottom: '20px' }}
+        >
+          <FiDownload size={14} />
+          <span>Download Resume</span>
+        </a>
+
+        <div className="editorial-socials">
           <a 
             href="https://www.linkedin.com/in/prakhathimurugesan/" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="social-icon-btn"
-            title="LinkedIn"
+            className="social-link"
           >
-            <FaLinkedin size={20} />
+            <FiLinkedin size={13} />
+            <span>LinkedIn</span>
           </a>
           <a 
             href="https://github.com/prakhathi-m" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="social-icon-btn"
-            title="GitHub"
+            className="social-link"
           >
-            <FaGithub size={20} />
+            <FiGithub size={13} />
+            <span>GitHub</span>
           </a>
           <a 
             href="mailto:prakhath@buffalo.edu" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="social-icon-btn"
-            title="Email"
+            className="social-link"
           >
-            <MdMail size={22} />
+            <FiMail size={13} />
+            <span>Email</span>
           </a>
         </div>
-
-        <a 
-          href={resumePdf} 
-          download="Prakhathi-Resume.pdf" 
-          className="resume-btn"
-        >
-          <FaFileArrowDown size={18} />
-          <span>Download Resume</span>
-        </a>
       </div>
     </aside>
   );
