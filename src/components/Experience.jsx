@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FiBriefcase } from 'react-icons/fi';
 
 const Experience = () => {
@@ -89,6 +89,34 @@ const Experience = () => {
     }
   ];
 
+  const containerRef = useRef(null);
+  const [dotProgress, setDotProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Calculate progress: starts when container top enters from bottom of screen,
+      // ends when bottom of container passes the top of screen.
+      const start = viewportHeight * 0.8;
+      const end = viewportHeight * 0.2;
+      const totalHeight = rect.height;
+      const currentPos = start - rect.top;
+      
+      let progress = currentPos / (totalHeight + start - end);
+      progress = Math.max(0, Math.min(1, progress));
+      
+      setDotProgress(progress * totalHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section id="experience" className="editorial-section reveal-element">
       <div className="editorial-section-header">
@@ -99,7 +127,25 @@ const Experience = () => {
         <span className="editorial-section-number">02 // WORK TIMELINE</span>
       </div>
       
-      <div className="timeline-container">
+      <div ref={containerRef} className="timeline-container" style={{ position: 'relative' }}>
+        {/* Animated Terracotta Scroll Dot */}
+        <div 
+          className="scroll-timeline-dot"
+          style={{
+            position: 'absolute',
+            left: '0px',
+            top: '8px',
+            width: '8px',
+            height: '8px',
+            borderRadius: '50%',
+            backgroundColor: 'var(--color-terracotta)',
+            zIndex: 10,
+            transform: `translateY(${dotProgress}px)`,
+            transition: 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: '0 0 8px rgba(200, 122, 101, 0.4)'
+          }}
+        />
+
         {experiences.map((exp, index) => {
           // Stagger reveal delays for nodes
           const delayClass = `reveal-element delay-${(index % 5) + 1}`;

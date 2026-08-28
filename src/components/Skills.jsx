@@ -12,8 +12,8 @@ const Skills = () => {
       skills: 'Storybook, Style-Dictionary, Design Tokens, WCAG 2.1 A/AA Standards, ARIA Roles, Semantic HTML, Screen Reader Optimization, Keyboard Navigation, Color Contrast Optimization'
     },
     {
-      title: 'AI & Automation Tools',
-      skills: 'Claude AI, AI-assisted design-to-code pipelines, Automated component generation'
+      title: 'Developer Scripting & Tooling',
+      skills: 'Custom development automation scripts, Shell scripting (Bash/Zsh), Webpack, Vite compilers, Web scraper utilities'
     },
     {
       title: 'UI Frameworks & Visualizations',
@@ -21,7 +21,7 @@ const Skills = () => {
     },
     {
       title: 'Architecture & Web Performance',
-      skills: 'Component Libraries, Reusable UI Frameworks, Build Optimization (Webpack / Vite), Code Splitting, Performance Profiling'
+      skills: 'Component Libraries, Reusable UI Frameworks, Build Optimization, Code Splitting, Performance Profiling'
     },
     {
       title: 'Testing, Quality & Backend',

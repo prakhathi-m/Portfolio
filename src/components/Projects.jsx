@@ -9,8 +9,8 @@ const Projects = () => {
   const projects = [
     {
       title: 'Refactoring Legacy Mortgage Portals to Optimize Client Page Loads',
-      bottleneck: 'Monolithic, un-optimized mortgage portal loading slowly on mobile devices, costing client conversions.',
-      solution: 'Re-bundled build structures with Webpack, customized white-label styles using LESS and Bootstrap, and removed rendering locks.',
+      bottleneck: 'Monolithic, un-optimized legacy codebases caused high page load latency, negatively impacting mobile client conversion rates.',
+      solution: 'Re-bundled asset delivery with Webpack and re-implemented layouts using LESS and Bootstrap, reducing initial page load times by 40%.',
       impact: 'Reduced initial page load times by 40% and improved responsive screen layout alignment across modern devices.',
       tech: ['jQuery', 'HTML5', 'LESS', 'Bootstrap', 'Webpack'],
       image: stearnsImg,
@@ -19,8 +19,8 @@ const Projects = () => {
     },
     {
       title: 'Replacing Redux with Native React Hooks to Kill Third-Party Overhead',
-      bottleneck: 'Bloated Redux boilerplate causing heavy browser store updates and sluggish rendering on large-scale talent charts.',
-      solution: 'Reimplemented state management using native React hooks (useContext, useReducer) and optimized SVG renderings with D3.js.',
+      bottleneck: 'Heavy boilerplate and redundant state sync updates from Redux caused sluggish render cycles on complex SVG charts.',
+      solution: 'Migrated dashboard state to native React hooks (useContext/useReducer) and optimized D3.js renders, boosting UI speed by 10%.',
       impact: 'Boosted dashboard data rendering speeds by 10% and eliminated complex, legacy state synchronization overhead.',
       tech: ['ReactJS', 'Redux', 'Django', 'PostgreSQL', 'AWS', 'D3.js'],
       image: twineImg,
@@ -29,8 +29,8 @@ const Projects = () => {
     },
     {
       title: 'Scaling Multilingual Search Pipelines to Query Twitter Streams in Real-Time',
-      bottleneck: 'Standard SQL search queries falling over under high-concurrency multilingual text lookups on raw Twitter datasets.',
-      solution: 'Designed a Python Flask backend serving a Lucene-based Apache Solr index with custom query weighting and sorting rules.',
+      bottleneck: 'Relational database search queries crashed under concurrent multi-language string parsing of high-volume Twitter data.',
+      solution: 'Built an Apache Solr search index with Python Flask, implementing custom sorting algorithms that dropped lookup latency below 15ms.',
       impact: 'Reduced search latency below 15ms and mapped query frequency trends dynamically using Google Charts.',
       tech: ['ReactJS', 'Flask', 'Apache Solr', 'AWS EC2', 'Google Charts'],
       image: twitterImg,
@@ -39,8 +39,8 @@ const Projects = () => {
     },
     {
       title: 'Architecting a React Native Booking Engine to Eliminate Race Conditions',
-      bottleneck: 'Concurrency race conditions in mobile performer booking forms leading to double-booked calendar slots.',
-      solution: 'Built a transactional REST API on Node.js linked to MSSQL database locks, rendering states dynamically on React Native.',
+      bottleneck: 'Concurrent requests on performer booking calendars caused double-booking race conditions during high-traffic events.',
+      solution: 'Implemented database-level locking triggers on a Node.js REST API, eliminating overlapping slots on the React Native client.',
       impact: 'Eliminated concurrent booking overlaps while streamlining real-time performer-client chat updates.',
       tech: ['React Native', 'Node.js', 'AWS', 'MSSQL'],
       image: emAppImg,
@@ -49,7 +49,7 @@ const Projects = () => {
     },
     {
       title: 'Distributing Text Classification Across Apache Spark Clusters',
-      bottleneck: 'High training times when parsing massive raw movie plot datasets on a single machine\'s local CPU.',
+      bottleneck: 'Training machine learning models on massive raw text corpuses exceeded local memory limits and local CPU capability.',
       solution: 'Implemented a PySpark distributed multi-label classification pipeline utilizing TF-IDF vectors and Word2Vec models.',
       impact: 'Accelerated data preparation and achieved a highly optimized model F1-score across large datasets.',
       tech: ['PySpark', 'Apache Spark', 'Machine Learning', 'TF-IDF', 'Word2Vec'],
@@ -79,6 +79,25 @@ const Projects = () => {
     }
   ];
 
+  // Dynamic 3D physical card tilt effect (cursor-responsive)
+  const handleMouseMove = (e) => {
+    const card = e.currentTarget;
+    const box = card.getBoundingClientRect();
+    const x = e.clientX - box.left - box.width / 2;
+    const y = e.clientY - box.top - box.height / 2;
+
+    // Max 3.5 degrees rotation for subtle, grounded print feel
+    const rotateX = -(y / (box.height / 2)) * 3.5;
+    const rotateY = (x / (box.width / 2)) * 3.5;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+  };
+
+  const handleMouseLeave = (e) => {
+    const card = e.currentTarget;
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+  };
+
   return (
     <section id="projects" className="editorial-section reveal-element">
       <div className="editorial-section-header">
@@ -93,7 +112,12 @@ const Projects = () => {
         {projects.map((project, index) => {
           const delayClass = `reveal-element delay-${(index % 5) + 1}`;
           return (
-            <div key={index} className={`project-editorial-card ${delayClass}`}>
+            <div 
+              key={index} 
+              className={`project-editorial-card ${delayClass}`}
+              onMouseMove={handleMouseMove}
+              onMouseLeave={handleMouseLeave}
+            >
               {project.image && (
                 <div className="project-card-image-wrapper">
                   <img 
